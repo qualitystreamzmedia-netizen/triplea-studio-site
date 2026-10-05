@@ -218,11 +218,11 @@
   const LAUNCH_END = new Date("2026-12-31T23:59:59-08:00");
   const LAUNCH = new Date() <= LAUNCH_END;
   const MARKETS = {
-    "Canada": { cur: "$", note: "Prices in Canadian dollars (CAD).", launch: [50, 90, 150], p: [70, 126, 210], lmsg: 15, msg: 21 },
-    "USA":    { cur: "$", note: "Prices in US dollars (USD).", launch: [39, 69, 109], p: [55, 97, 153], lmsg: 12, msg: 17 },
-    "UK":     { cur: "£", note: "Prices in pounds sterling (GBP).", launch: [29, 49, 79], p: [41, 69, 111], lmsg: 10, msg: 14 },
-    "Europe": { cur: "€", note: "Prices in euros (EUR).", launch: [35, 60, 100], p: [49, 84, 140], lmsg: 10, msg: 14 },
-    "Ghana":  { cur: "GH₵", note: "Prices in Ghana cedis (GH₵).", launch: [300, 600, 1000], p: [420, 840, 1400], lmsg: 100, msg: 140 },
+    "Canada": { cur: "$", note: "Prices in Canadian dollars (CAD).", launch: [50, 90, 150], p: [70, 125, 210], lmsg: 15, msg: 20 },
+    "USA":    { cur: "$", note: "Prices in US dollars (USD).", launch: [39, 69, 109], p: [55, 95, 150], lmsg: 12, msg: 15 },
+    "UK":     { cur: "£", note: "Prices in pounds sterling (GBP).", launch: [29, 49, 79], p: [40, 70, 110], lmsg: 10, msg: 15 },
+    "Europe": { cur: "€", note: "Prices in euros (EUR).", launch: [35, 60, 100], p: [50, 85, 140], lmsg: 10, msg: 15 },
+    "Ghana":  { cur: "GH₵", note: "Prices in Ghana cedis (GH₵).", launch: [300, 600, 1000], p: [400, 850, 1400], lmsg: 100, msg: 150 },
   };
   if (LAUNCH) document.getElementById("offer").hidden = false;
   const PKGS = [
