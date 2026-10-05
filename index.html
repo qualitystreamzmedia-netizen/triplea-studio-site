@@ -75,6 +75,10 @@
   .order .card { max-width: 720px; margin: 0 auto; text-align: left; }
   .order ul { color: var(--muted); }
   .email { font-size: clamp(20px, 3vw, 28px); font-weight: 800; word-break: break-all; }
+  .offer { background: var(--gold); color: #2a0f3d; text-align: center; font-weight: 700; padding: 10px 16px; font-size: 16px; }
+  .offer a { color: #2a0f3d; }
+  .later { color: var(--muted); font-size: 14px; margin: -4px 0 10px; }
+  .launch-tag { display: inline-block; background: var(--red); color: #fff; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
   footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
   @media (max-width: 900px) {
@@ -89,6 +93,7 @@
 </head>
 <body>
 <div class="kente"></div>
+<div class="offer" id="offer" hidden>🎄 Launch offer: today's prices for all orders placed by December 31, 2026 – perfect for Christmas and New Year. <a href="#prices">See prices</a></div>
 <header>
   <div class="wrap bar">
     <a class="logo" href="#top">TripleA Studio<small>by Quality Streamz Media</small></a>
@@ -208,13 +213,18 @@
 <div class="kente"></div>
 
 <script>
+  // Launch prices apply to orders placed by LAUNCH_END; regular prices from the next day.
+  // Keep in sync with PosabaStudio/core.py (LAUNCH_PRICES, REGULAR_PRICES, LAUNCH_ENDS) and MusicVideoMaker/promo.py.
+  const LAUNCH_END = new Date("2026-12-31T23:59:59-08:00");
+  const LAUNCH = new Date() <= LAUNCH_END;
   const MARKETS = {
-    "Canada": { cur: "$", note: "Prices in Canadian dollars (CAD).", p: [50, 90, 150], msg: 15 },
-    "USA":    { cur: "$", note: "Prices in US dollars (USD).", p: [39, 69, 109], msg: 12 },
-    "UK":     { cur: "£", note: "Prices in pounds sterling (GBP).", p: [29, 49, 79], msg: 10 },
-    "Europe": { cur: "€", note: "Prices in euros (EUR).", p: [35, 60, 100], msg: 10 },
-    "Ghana":  { cur: "GH₵", note: "Prices in Ghana cedis (GH₵).", p: [300, 600, 1000], msg: 100 },
+    "Canada": { cur: "$", note: "Prices in Canadian dollars (CAD).", launch: [50, 90, 150], p: [70, 126, 210], lmsg: 15, msg: 21 },
+    "USA":    { cur: "$", note: "Prices in US dollars (USD).", launch: [39, 69, 109], p: [55, 97, 153], lmsg: 12, msg: 17 },
+    "UK":     { cur: "£", note: "Prices in pounds sterling (GBP).", launch: [29, 49, 79], p: [41, 69, 111], lmsg: 10, msg: 14 },
+    "Europe": { cur: "€", note: "Prices in euros (EUR).", launch: [35, 60, 100], p: [49, 84, 140], lmsg: 10, msg: 14 },
+    "Ghana":  { cur: "GH₵", note: "Prices in Ghana cedis (GH₵).", launch: [300, 600, 1000], p: [420, 840, 1400], lmsg: 100, msg: 140 },
   };
+  if (LAUNCH) document.getElementById("offer").hidden = false;
   const PKGS = [
     ["Song", ["Custom lyrics", "2 versions to choose from", "MP3 download"]],
     ["Song + Lyric Video", ["Everything in Song", "HD lyric video", "Easy to share online"]],
@@ -226,10 +236,13 @@
     document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.m === m));
     document.getElementById("packages").innerHTML = PKGS.map(([name, items], i) => `
       <div class="card${i === 1 ? " best" : ""}">${i === 1 ? '<span class="badge">Most popular</span>' : ""}
-        <h3>${name}</h3><div class="price"><small>from</small> ${fmt(d.cur, d.p[i])}</div>
+        <h3>${name}${LAUNCH ? '<span class="launch-tag">Launch price</span>' : ""}</h3>
+        <div class="price"><small>from</small> ${fmt(d.cur, LAUNCH ? d.launch[i] : d.p[i])}</div>
+        ${LAUNCH ? `<p class="later">From Jan 1: from ${fmt(d.cur, d.p[i])}</p>` : ""}
         <ul>${items.map(x => `<li>${x}</li>`).join("")}</ul></div>`).join("");
-    document.getElementById("note").textContent =
-      `${d.note} Add voice messages from family for ${fmt(d.cur, d.msg)}.`;
+    document.getElementById("note").textContent = LAUNCH
+      ? `${d.note} Add voice messages from family for ${fmt(d.cur, d.lmsg)}. Launch prices apply to orders placed by December 31, 2026; from January 1, 2027 the regular prices shown apply.`
+      : `${d.note} Add voice messages from family for ${fmt(d.cur, d.msg)}.`;
     try { localStorage.setItem("market", m); } catch (e) {}
   }
   const tabs = document.getElementById("tabs");
