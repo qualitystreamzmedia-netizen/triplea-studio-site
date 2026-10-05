@@ -89,6 +89,26 @@
     .hero img { max-width: 420px; margin: 0 auto; display: block; }
   }
   @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } nav .btn { padding: 10px 16px; font-size: 14px; } }
+  .incl { width: 100%; border-collapse: collapse; margin-top: 26px; font-size: 15px; }
+  .incl th, .incl td { border-bottom: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+  .incl th { color: var(--gold); font-weight: 800; }
+  .incl td:first-child { color: var(--cream); font-weight: 600; white-space: nowrap; }
+  .incl td { color: var(--muted); }
+  .scroll { overflow-x: auto; }
+  .extras { margin-top: 18px; color: var(--muted); font-size: 15px; }
+  .extras b { color: var(--cream); }
+  .btn.wa { background: #25d366; color: #0b3d1e; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 8px 0 28px; }
+  .fab { position: fixed; right: 16px; bottom: 16px; z-index: 20; background: #25d366; color: #0b3d1e; font-weight: 800; text-decoration: none; padding: 12px 18px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,.4); font-size: 15px; }
+  form.order-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; text-align: left; }
+  form.order-form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--cream); font-weight: 600; }
+  form.order-form .full { grid-column: 1 / -1; }
+  form.order-form input, form.order-form select, form.order-form textarea { font: inherit; font-size: 15px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: #24102f; color: var(--text); }
+  form.order-form textarea { min-height: 110px; resize: vertical; }
+  form.order-form .check { flex-direction: row; align-items: center; font-weight: 400; color: var(--muted); }
+  .form-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; }
+  .form-actions button { border: 0; cursor: pointer; font: inherit; }
+  @media (max-width: 640px) { form.order-form { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -170,6 +190,19 @@
       <div class="grid3" id="packages"></div>
       <p class="note" id="note"></p>
       <p class="note">Business jingles and video adverts: email us for a quote.</p>
+      <h3 style="margin:34px 0 0;color:#fff;font-size:22px">What each package includes</h3>
+      <div class="scroll"><table class="incl">
+        <tr><th></th><th>Song</th><th>Song + Lyric Video</th><th>Full Tribute</th></tr>
+        <tr><td>Song length</td><td>About 3 minutes</td><td>About 3 minutes</td><td>About 3 minutes</td></tr>
+        <tr><td>Versions to choose from</td><td>2</td><td>2</td><td>2</td></tr>
+        <tr><td>Changes included</td><td>1 round of lyric changes before production</td><td>+ 1 round of video text fixes</td><td>+ 1 round of photo changes</td></tr>
+        <tr><td>Video</td><td>–</td><td>HD lyric video</td><td>HD lyric video with your photos (up to 30)</td></tr>
+        <tr><td>Delivery</td><td>5–7 days</td><td>7–10 days</td><td>7–10 days</td></tr>
+      </table></div>
+      <div class="extras">
+        <p><b>Voice messages add-on:</b> up to 5 recorded messages from family, about 1 minute each, played at the end of the song or video.</p>
+        <p><b>Extras (ask us for a price):</b> 24-hour express service · extra revision rounds · more than 30 photos.</p>
+      </div>
       <p class="note">Our lyrics are written for you; the music and vocals are produced with AI tools, then edited by us.</p>
     </div>
   </section>
@@ -189,17 +222,28 @@
   <section id="order" class="order">
     <div class="wrap">
       <h2>Order a song</h2>
-      <p class="sub" style="margin-left:auto;margin-right:auto">Email us and we'll reply with the next steps.</p>
+      <p class="sub" style="margin-left:auto;margin-right:auto">Chat with us on WhatsApp, email us, or fill in the form below and send it either way.</p>
+      <div class="btns">
+        <a class="btn wa" href="https://wa.me/12507567553?text=Hello%20TripleA%20Studio%2C%20I%27d%20like%20to%20order%20a%20song." target="_blank" rel="noopener">💬 WhatsApp +1 (250) 756-7553</a>
+        <a class="btn ghost" href="mailto:triplea@qualitystreamzmedia.com?subject=Song%20order">✉️ triplea@qualitystreamzmedia.com</a>
+      </div>
       <div class="card">
-        <p class="email"><a href="mailto:triplea@qualitystreamzmedia.com?subject=Song%20order&body=Who%20is%20the%20song%20for%3F%0AOccasion%20and%20date%3A%0APackage%20(Song%20%2F%20Song%20%2B%20Lyric%20Video%20%2F%20Full%20Tribute)%3A%0AWhere%20you%20are%20(Canada%2C%20USA%2C%20UK%2C%20Europe%2C%20Ghana)%3A%0ATheir%20story%3A%0A">triplea@qualitystreamzmedia.com</a></p>
-        <p style="color:var(--muted);margin-bottom:6px">Please include:</p>
-        <ul>
-          <li>Who the song is for, and the occasion and date</li>
-          <li>The package you'd like, and where you are</li>
-          <li>Their story – names, nicknames, memories, faith, family, favourite things</li>
-          <li>Music style and languages (English, Twi, Ga…)</li>
-          <li>For videos: photos, and any voice messages from family</li>
-        </ul>
+        <form class="order-form" id="orderForm">
+          <label>Your name<input name="name" required autocomplete="name"></label>
+          <label>Where you are<select name="market"><option>Canada</option><option>USA</option><option>UK</option><option>Europe</option><option>Ghana</option></select></label>
+          <label>Who is the song for?<input name="for" required placeholder="e.g. Grandma, Nana Comfort"></label>
+          <label>Occasion and date<input name="occasion" required placeholder="e.g. 72nd birthday, Nov 14"></label>
+          <label>Package<select name="package"><option>Song</option><option selected>Song + Lyric Video</option><option>Full Tribute</option><option>Business jingle / advert</option></select></label>
+          <label>Music style and languages<input name="style" placeholder="e.g. Afro-gospel, English with some Twi"></label>
+          <label class="full">Their story<textarea name="story" required placeholder="Names and nicknames, memories, faith and church, family, favourite things, sayings…"></textarea></label>
+          <label class="check full"><input type="checkbox" name="messages"> Add voice messages from family</label>
+          <label class="check full"><input type="checkbox" name="express"> I need the 24-hour express service (extra fee)</label>
+          <div class="form-actions">
+            <button type="submit" class="btn wa" data-via="wa">Send on WhatsApp</button>
+            <button type="submit" class="btn" data-via="email">Send by email</button>
+          </div>
+          <p class="full note" style="margin:0">Your details go straight to us from your own WhatsApp or email – nothing is stored on this website. Photos and voice messages can be sent afterwards in the same chat or email.</p>
+        </form>
       </div>
     </div>
   </section>
@@ -212,6 +256,7 @@
   </div>
 </footer>
 <div class="kente"></div>
+<a class="fab" href="https://wa.me/12507567553?text=Hello%20TripleA%20Studio%21" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬 WhatsApp</a>
 
 <script>
   // Launch prices apply to orders placed by LAUNCH_END; regular prices from the next day.
@@ -256,6 +301,29 @@
   try { start = localStorage.getItem("market") || start; } catch (e) {}
   show(MARKETS[start] ? start : "Canada");
   document.getElementById("yr").textContent = new Date().getFullYear();
+  // order form -> prefilled WhatsApp message or email (nothing is sent to a server)
+  const form = document.getElementById("orderForm");
+  let via = "wa";
+  form.querySelectorAll("button[data-via]").forEach(b => b.addEventListener("click", () => via = b.dataset.via));
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const lines = [
+      "New song order – TripleA Studio",
+      "Name: " + f.get("name"),
+      "Where: " + f.get("market"),
+      "Song for: " + f.get("for"),
+      "Occasion & date: " + f.get("occasion"),
+      "Package: " + f.get("package"),
+      "Style & languages: " + (f.get("style") || "-"),
+      "Voice messages add-on: " + (f.get("messages") ? "Yes" : "No"),
+      "24-hour express: " + (f.get("express") ? "Yes" : "No"),
+      "Their story: " + f.get("story"),
+    ];
+    const text = lines.join("\n");
+    if (via === "wa") window.open("https://wa.me/12507567553?text=" + encodeURIComponent(text), "_blank", "noopener");
+    else location.href = "mailto:triplea@qualitystreamzmedia.com?subject=" + encodeURIComponent("Song order – " + f.get("for")) + "&body=" + encodeURIComponent(text);
+  });
 </script>
 </body>
 </html>
