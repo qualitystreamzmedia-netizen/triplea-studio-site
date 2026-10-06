@@ -54,7 +54,8 @@
   .sample h3 { margin: 12px 0 4px; color: var(--cream); font-size: 18px; }
   .sample p { margin: 0; color: var(--muted); font-size: 15px; }
   .sample video { width: 100%; border-radius: 14px; background: #000; aspect-ratio: 9/16; }
-  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 1000px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 760px) { .feature-grid { grid-template-columns: 1fr; } }
   .feature-video { margin-bottom: 22px; }
   .feature-video video { width: 100%; aspect-ratio: 16/9; border-radius: 16px; background: #000; display: block; border: 1px solid var(--line); }
@@ -177,7 +178,7 @@
   <section id="samples" class="alt">
     <div class="wrap">
       <h2>Listen & watch</h2>
-      <p class="sub">Two sample lyric videos: an English love song, and a gospel thanksgiving with a touch of Twi.</p>
+      <p class="sub">Sample lyric videos: an English love song, a gospel thanksgiving with a touch of Twi, and a full Twi highlife song.</p>
       <div class="feature-grid">
         <div class="feature-video">
           <video controls preload="none" playsinline poster="assets/love-song-lyric-video-poster.jpg" src="assets/every-little-thing-full.mp4"></video>
@@ -186,6 +187,10 @@
         <div class="feature-video">
           <video controls preload="none" playsinline poster="assets/ebenezer-lyric-video-poster.jpg" src="assets/ebenezer-lyric-video.mp4"></video>
           <p><b style="color:var(--cream)">“Ebenezer”</b> – a thanksgiving for a grandmother's 72nd birthday (Afro-gospel). Chorus, 45 seconds. Full Tribute videos add your photos, matched to each line.</p>
+        </div>
+        <div class="feature-video">
+          <video controls preload="none" playsinline poster="assets/eye-adom-poster.jpg" src="assets/eye-adom-twi-highlife.mp4"></video>
+          <p><b style="color:var(--cream)">“Ɛyɛ Adom” (It Is Grace)</b> – a thanksgiving sung entirely in Twi (Ghanaian highlife), with English meanings on screen. Full song, 4 minutes.</p>
         </div>
       </div>
       <div class="samples" style="grid-template-columns:1fr;margin-top:22px">
