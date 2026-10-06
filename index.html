@@ -112,6 +112,15 @@
   .form-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; }
   .form-actions button { border: 0; cursor: pointer; font: inherit; }
   @media (max-width: 640px) { form.order-form { grid-template-columns: 1fr; } }
+  .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 26px; }
+  .review { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+  .review .stars { color: var(--gold); letter-spacing: 2px; font-size: 18px; }
+  .review blockquote { margin: 10px 0 12px; color: var(--cream); font-style: italic; }
+  .review .who { color: var(--muted); font-size: 14px; }
+  .empty-reviews { background: var(--card); border: 1px dashed var(--line); border-radius: 18px; padding: 22px; color: var(--muted); margin-bottom: 22px; }
+  details.leave summary { cursor: pointer; display: inline-block; }
+  details.leave summary::-webkit-details-marker { display: none; }
+  details.leave[open] summary { margin-bottom: 18px; }
 </style>
 </head>
 <body>
@@ -125,6 +134,7 @@
       <a href="#samples">Listen</a>
       <a href="#prices">Prices</a>
       <a href="#how">How it works</a>
+      <a href="#reviews">Reviews</a>
       <a class="btn" href="#order">Order a song</a>
     </nav>
   </div>
@@ -228,6 +238,32 @@
     </div>
   </section>
 
+  <section id="reviews">
+    <div class="wrap">
+      <h2>Reviews</h2>
+      <p class="sub">What our customers say. We only publish real reviews, with the reviewer's permission.</p>
+      <div class="reviews" id="reviewList"></div>
+      <div class="empty-reviews" id="noReviews">We're a new studio – our first reviews are on their way. Had a song or advert from us? We'd love to hear from you.</div>
+      <details class="leave">
+        <summary class="btn ghost">✍️ Leave a review</summary>
+        <div class="card">
+          <form class="order-form" id="reviewForm">
+            <label>Your name<input name="name" required autocomplete="name"></label>
+            <label>Name to show on the website<input name="shown" placeholder="e.g. Ama K., Toronto"></label>
+            <label>What did we make for you?<input name="what" required placeholder="e.g. birthday song for my mum"></label>
+            <label>Rating<select name="stars"><option value="5">★★★★★ 5</option><option value="4">★★★★ 4</option><option value="3">★★★ 3</option><option value="2">★★ 2</option><option value="1">★ 1</option></select></label>
+            <label class="full">Your review<textarea name="text" required placeholder="How did the song or video turn out? How did they react?"></textarea></label>
+            <label class="check full"><input type="checkbox" name="consent" required> TripleA Studio may publish this review on its website with the name I chose above.</label>
+            <div class="form-actions">
+              <button type="submit" class="btn wa" data-via="wa">Send on WhatsApp</button>
+              <button type="submit" class="btn" data-via="email">Send by email</button>
+            </div>
+          </form>
+        </div>
+      </details>
+    </div>
+  </section>
+
   <section id="order" class="order">
     <div class="wrap">
       <h2>Order a song</h2>
@@ -312,6 +348,35 @@
   try { start = localStorage.getItem("market") || start; } catch (e) {}
   show(MARKETS[start] ? start : "Canada");
   document.getElementById("yr").textContent = new Date().getFullYear();
+  // reviews: add real reviews here only after the reviewer agrees to publication.
+  // Disclose personal connections in "note", e.g. "family" or "friend of the studio".
+  const REVIEWS = [
+    // { name: "Ama K., Toronto", what: "Birthday song for my mum", stars: 5, text: "...", note: "" },
+  ];
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+  if (REVIEWS.length) {
+    document.getElementById("noReviews").hidden = true;
+    document.getElementById("reviewList").innerHTML = REVIEWS.map(r => `
+      <div class="review"><div class="stars">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</div>
+        <blockquote>“${esc(r.text)}”</blockquote>
+        <div class="who"><b style="color:var(--cream)">${esc(r.name)}</b>${r.note ? " (" + esc(r.note) + ")" : ""} · ${esc(r.what)}</div></div>`).join("");
+  }
+  const rform = document.getElementById("reviewForm");
+  let rvia = "wa";
+  rform.querySelectorAll("button[data-via]").forEach(b => b.addEventListener("click", () => rvia = b.dataset.via));
+  rform.addEventListener("submit", e => {
+    e.preventDefault();
+    const f = new FormData(rform);
+    const text = ["Review for TripleA Studio",
+      "Name: " + f.get("name"),
+      "Show as: " + (f.get("shown") || f.get("name")),
+      "What we made: " + f.get("what"),
+      "Rating: " + f.get("stars") + "/5",
+      "Review: " + f.get("text"),
+      "Permission to publish: Yes"].join("\n");
+    if (rvia === "wa") window.open("https://wa.me/12507567553?text=" + encodeURIComponent(text), "_blank", "noopener");
+    else location.href = "mailto:triplea@qualitystreamzmedia.com?subject=" + encodeURIComponent("Review – " + f.get("name")) + "&body=" + encodeURIComponent(text);
+  });
   // order form -> prefilled WhatsApp message or email (nothing is sent to a server)
   const form = document.getElementById("orderForm");
   let via = "wa";
