@@ -201,7 +201,7 @@
       </table></div>
       <div class="extras">
         <p><b>Voice messages add-on:</b> up to 5 recorded messages from family, about 1 minute each, played at the end of the song or video.</p>
-        <p><b>Extras (ask us for a price):</b> 24-hour express service · extra revision rounds · more than 30 photos.</p>
+        <p><b>Extras (ask us for a price):</b> 24-hour express service (subject to availability) · extra revision rounds · more than 30 photos.</p>
       </div>
       <p class="note">Our lyrics are written for you; the music and vocals are produced with AI tools, then edited by us.</p>
     </div>
@@ -237,7 +237,7 @@
           <label>Music style and languages<input name="style" placeholder="e.g. Afro-gospel, English with some Twi"></label>
           <label class="full">Their story<textarea name="story" required placeholder="Names and nicknames, memories, faith and church, family, favourite things, sayings…"></textarea></label>
           <label class="check full"><input type="checkbox" name="messages"> Add voice messages from family</label>
-          <label class="check full"><input type="checkbox" name="express"> I need the 24-hour express service (extra fee)</label>
+          <label class="check full"><input type="checkbox" name="express"> I need the 24-hour express service (extra fee, subject to availability)</label>
           <div class="form-actions">
             <button type="submit" class="btn wa" data-via="wa">Send on WhatsApp</button>
             <button type="submit" class="btn" data-via="email">Send by email</button>
@@ -289,6 +289,8 @@
     document.getElementById("note").textContent = LAUNCH
       ? `${d.note} Add voice messages from family for ${fmt(d.cur, d.lmsg)}. Launch prices apply to orders placed by December 31, 2026; from January 1, 2027 the regular prices shown apply.`
       : `${d.note} Add voice messages from family for ${fmt(d.cur, d.msg)}.`;
+    const sel = document.querySelector('#orderForm select[name="market"]');   // keep the order form in step
+    if (sel) sel.value = m;
     try { localStorage.setItem("market", m); } catch (e) {}
   }
   const tabs = document.getElementById("tabs");
