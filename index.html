@@ -54,6 +54,8 @@
   .sample h3 { margin: 12px 0 4px; color: var(--cream); font-size: 18px; }
   .sample p { margin: 0; color: var(--muted); font-size: 15px; }
   .sample video { width: 100%; border-radius: 14px; background: #000; aspect-ratio: 9/16; }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px) { .feature-grid { grid-template-columns: 1fr; } }
   .feature-video { margin-bottom: 22px; }
   .feature-video video { width: 100%; aspect-ratio: 16/9; border-radius: 16px; background: #000; display: block; border: 1px solid var(--line); }
   .feature-video p { color: var(--muted); font-size: 15px; margin: 10px 0 0; }
@@ -147,7 +149,7 @@
         <h1>A song written just for <em>the ones you love</em></h1>
         <p class="lead">Personal tribute songs for birthdays, thanksgivings, weddings and memorials – with lyric and photo videos, and optional voice messages from family near and far.</p>
         <div class="chips">
-          <span class="chip">🎂 Birthdays</span><span class="chip">🙏 Thanksgiving</span><span class="chip">💍 Weddings</span>
+          <span class="chip">🎂 Birthdays</span><span class="chip">🙏 Thanksgiving</span><span class="chip">💍 Weddings</span><span class="chip">💕 Anniversaries & love songs</span>
           <span class="chip">🕊️ Memorials</span><span class="chip">📣 Business jingles</span>
         </div>
         <a class="btn" href="#order">Order a song</a>&nbsp;
@@ -175,10 +177,16 @@
   <section id="samples" class="alt">
     <div class="wrap">
       <h2>Listen & watch</h2>
-      <p class="sub">A thanksgiving song we wrote for a grandmother's 72nd birthday.</p>
-      <div class="feature-video">
-        <video controls preload="none" playsinline poster="assets/ebenezer-lyric-video-poster.jpg" src="assets/ebenezer-lyric-video.mp4"></video>
-        <p><b style="color:var(--cream)">Lyric video sample</b> – the chorus of “Ebenezer”, with the words on screen (Song + Lyric Video package). Full Tribute videos add your photos, matched to each line.</p>
+      <p class="sub">Two sample lyric videos: an English love song, and a gospel thanksgiving with a touch of Twi.</p>
+      <div class="feature-grid">
+        <div class="feature-video">
+          <video controls preload="none" playsinline poster="assets/love-song-lyric-video-poster.jpg" src="assets/love-song-lyric-video.mp4"></video>
+          <p><b style="color:var(--cream)">“Every Little Thing”</b> – an anniversary love song (acoustic pop duet). <i>Sample song – written for an imaginary couple.</i></p>
+        </div>
+        <div class="feature-video">
+          <video controls preload="none" playsinline poster="assets/ebenezer-lyric-video-poster.jpg" src="assets/ebenezer-lyric-video.mp4"></video>
+          <p><b style="color:var(--cream)">“Ebenezer”</b> – a thanksgiving for a grandmother's 72nd birthday (Afro-gospel). Full Tribute videos add your photos, matched to each line.</p>
+        </div>
       </div>
       <div class="samples">
         <div class="sample">
