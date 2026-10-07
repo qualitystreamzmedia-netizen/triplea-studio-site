@@ -128,7 +128,7 @@
 </head>
 <body>
 <div class="kente"></div>
-<div class="offer" id="offer" hidden>🎄 Launch offer: today's prices for all orders placed by December 31, 2026 – perfect for Christmas and New Year. <a href="#prices">See prices</a></div>
+<div class="offer" id="offer" hidden>🎄 Launch offer: 40% off all orders placed by December 31, 2026 – perfect for Christmas and New Year. <a href="#prices">See prices</a></div>
 <header>
   <div class="wrap bar">
     <a class="logo" href="#top">TripleA Studio<small>by Quality Streamz Media</small></a>
@@ -219,12 +219,12 @@
         <tr><td>Song versions</td><td>2 – you keep both</td><td>2 – you keep both</td><td>2 – you keep both</td></tr>
         <tr><td>Changes included</td><td>1 round of lyric changes before production</td><td>+ 1 round of video text fixes</td><td>+ 1 round of photo changes</td></tr>
         <tr><td>Video</td><td>–</td><td>HD lyric video</td><td>HD lyric video with your photos (up to 30)</td></tr>
-        <tr><td>Delivery</td><td>5–7 days</td><td>7–10 days</td><td>7–10 days</td></tr>
+        <tr><td>Delivery</td><td>2–3 days</td><td>2–3 days</td><td>3–4 days</td></tr>
       </table></div>
       <p class="note">Delivery time starts once we have your payment, all your materials (story, photos, voice messages) and your approval of the lyrics.</p>
       <div class="extras">
         <p><b>Voice messages add-on:</b> up to 5 recorded messages from family, about 1 minute each, played at the end of the song or video.</p>
-        <p><b>24-hour express service: +50% of the package price</b>, for any package, subject to availability. The 24 hours start once we have your payment and all your materials; please approve the lyrics within 2 hours of receiving them, or the clock pauses.</p>
+        <p><b>24-hour express service: +20% of the package price</b>, for any package, subject to availability. The 24 hours start once we have your payment and all your materials; please approve the lyrics within 2 hours of receiving them, or the clock pauses.</p>
         <p><b>What else can raise a “from” price (ask us):</b> extra revision rounds · more than 30 photos · more than 5 voice messages · songs longer than about 4 minutes.</p>
       </div>
       <p class="note">Our lyrics are written for you; the music and vocals are produced with AI tools, then edited by us.</p>
@@ -287,7 +287,7 @@
           <label>Music style and languages<input name="style" placeholder="e.g. Afro-gospel, English with some Twi"></label>
           <label class="full">Their story<textarea name="story" required placeholder="Names and nicknames, memories, faith and church, family, favourite things, sayings…"></textarea></label>
           <label class="check full"><input type="checkbox" name="messages"> Add voice messages from family</label>
-          <label class="check full"><input type="checkbox" name="express"> I need the 24-hour express service (+50%, subject to availability)</label>
+          <label class="check full"><input type="checkbox" name="express"> I need the 24-hour express service (+20%, subject to availability)</label>
           <div class="form-actions">
             <button type="submit" class="btn wa" data-via="wa">Send on WhatsApp</button>
             <button type="submit" class="btn" data-via="email">Send by email</button>
@@ -314,11 +314,11 @@
   const LAUNCH_END = new Date("2026-12-31T23:59:59-08:00");
   const LAUNCH = new Date() <= LAUNCH_END;
   const MARKETS = {
-    "Canada": { cur: "$", note: "Prices in Canadian dollars (CAD).", launch: [50, 90, 150], p: [70, 125, 210], lmsg: 15, msg: 20 },
-    "USA":    { cur: "$", note: "Prices in US dollars (USD).", launch: [39, 69, 109], p: [55, 95, 150], lmsg: 12, msg: 15 },
-    "UK":     { cur: "£", note: "Prices in pounds sterling (GBP).", launch: [29, 49, 79], p: [40, 70, 110], lmsg: 10, msg: 15 },
-    "Europe": { cur: "€", note: "Prices in euros (EUR).", launch: [35, 60, 100], p: [50, 85, 140], lmsg: 10, msg: 15 },
-    "Ghana":  { cur: "GH₵", note: "Prices in Ghana cedis (GH₵).", launch: [300, 600, 1000], p: [400, 850, 1400], lmsg: 100, msg: 150 },
+    "Canada": { cur: "$", note: "Prices in Canadian dollars (CAD).", launch: [30, 55, 90], p: [50, 90, 150], lmsg: 9, msg: 15 },
+    "USA":    { cur: "$", note: "Prices in US dollars (USD).", launch: [25, 40, 65], p: [39, 69, 109], lmsg: 8, msg: 12 },
+    "UK":     { cur: "£", note: "Prices in pounds sterling (GBP).", launch: [18, 30, 48], p: [29, 49, 79], lmsg: 6, msg: 10 },
+    "Europe": { cur: "€", note: "Prices in euros (EUR).", launch: [20, 35, 60], p: [35, 60, 100], lmsg: 6, msg: 10 },
+    "Ghana":  { cur: "GH₵", note: "Prices in Ghana cedis (GH₵).", launch: [180, 360, 600], p: [300, 600, 1000], lmsg: 60, msg: 100 },
   };
   if (LAUNCH) document.getElementById("offer").hidden = false;
   const PKGS = [
