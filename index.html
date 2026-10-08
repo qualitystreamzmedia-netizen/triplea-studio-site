@@ -288,6 +288,8 @@
           <label class="full">Their story<textarea name="story" required placeholder="Names and nicknames, memories, faith and church, family, favourite things, sayings…"></textarea></label>
           <label class="check full"><input type="checkbox" name="messages"> Add voice messages from family</label>
           <label class="check full"><input type="checkbox" name="express"> I need the 24-hour express service (+20%, subject to availability)</label>
+          <label>Discount code (optional)<input name="code" autocomplete="off" placeholder="e.g. SAMPSON26" style="text-transform:uppercase"></label>
+          <p class="note" id="codeMsg" style="margin:0;align-self:end" aria-live="polite"></p>
           <div class="form-actions">
             <button type="submit" class="btn wa" data-via="wa">Send on WhatsApp</button>
             <button type="submit" class="btn" data-via="email">Send by email</button>
@@ -386,6 +388,20 @@
   });
   // order form -> prefilled WhatsApp message or email (nothing is sent to a server)
   const form = document.getElementById("orderForm");
+  // Discount codes: % off the package and add-ons (not the express surcharge); stack with the launch offer.
+  // Keep in sync with PosabaStudio/core.py (DISCOUNT_CODES).
+  const CODES = { "SAMPSON26": { pct: 20, until: new Date("2026-12-31T23:59:59-08:00") } };
+  const codeOf = v => {
+    const k = String(v || "").trim().toUpperCase();
+    const c = CODES[k];
+    return k ? (c && new Date() <= c.until ? { k, pct: c.pct } : { k, bad: true }) : null;
+  };
+  const codeMsg = document.getElementById("codeMsg");
+  form.elements.code.addEventListener("input", () => {
+    const c = codeOf(form.elements.code.value);
+    codeMsg.textContent = !c ? "" : c.bad ? "That code isn't recognised (or has expired)." : `✓ ${c.pct}% off applied – on the package and add-ons (not express).`;
+    codeMsg.style.color = c && !c.bad ? "var(--gold)" : "";
+  });
   let via = "wa";
   form.querySelectorAll("button[data-via]").forEach(b => b.addEventListener("click", () => via = b.dataset.via));
   form.addEventListener("submit", e => {
@@ -401,8 +417,10 @@
       "Style & languages: " + (f.get("style") || "-"),
       "Voice messages add-on: " + (f.get("messages") ? "Yes" : "No"),
       "24-hour express: " + (f.get("express") ? "Yes" : "No"),
-      "Their story: " + f.get("story"),
     ];
+    const c = codeOf(f.get("code"));
+    if (c) lines.push("Discount code: " + c.k + (c.bad ? " (not recognised)" : ` (${c.pct}% off package and add-ons)`));
+    lines.push("Their story: " + f.get("story"));
     const text = lines.join("\n");
     if (via === "wa") window.open("https://wa.me/12507567553?text=" + encodeURIComponent(text), "_blank", "noopener");
     else location.href = "mailto:triplea@qualitystreamzmedia.com?subject=" + encodeURIComponent("Song order – " + f.get("for")) + "&body=" + encodeURIComponent(text);
