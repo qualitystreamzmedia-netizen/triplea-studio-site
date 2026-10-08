@@ -63,6 +63,8 @@
   .worship-feature { margin: 12px 0 30px; scroll-margin-top: 100px; }
   .worship-feature h3 { margin: 0 0 16px; color: var(--cream); font-size: 24px; }
   .worship-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: center; }
+  .worship-grid + .worship-grid { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--line); }
+  #morning-mercy { scroll-margin-top: 100px; }
   .worship-player { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 14px; background: #000; display: block; }
   .worship-copy h4 { margin: 18px 0 8px; color: var(--cream); font-size: 20px; }
   .worship-copy p { margin: 0 0 16px; }
@@ -217,6 +219,16 @@
             <p><a href="https://youtu.be/_KBQma-ql3o" target="_blank" rel="noopener">Watch on YouTube</a></p>
             <h4>A worship song tailored to you</h4>
             <p>Share your testimony, favourite scripture and preferred language. Let us turn your story of faith into a personal song of worship.</p>
+            <a class="btn" href="#order">Order a worship song tailored to you</a>
+          </div>
+        </div>
+        <div class="worship-grid" id="morning-mercy">
+          <video class="worship-player" controls preload="metadata" playsinline aria-label="Morning Mercy — full lyric video" src="assets/morning-mercy.mp4#t=0.001"></video>
+          <div class="worship-copy">
+            <h4>Morning Mercy</h4>
+            <p>Take a quiet moment to worship with “Morning Mercy.” Watch and sing along with the full lyric video.</p>
+            <h4>A worship song tailored to you</h4>
+            <p>Tell us the message of faith you would like to share, and let us create a worship song inspired by your story.</p>
             <a class="btn" href="#order">Order a worship song tailored to you</a>
           </div>
         </div>
