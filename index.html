@@ -115,6 +115,14 @@
   .form-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; }
   .form-actions button { border: 0; cursor: pointer; font: inherit; }
   @media (max-width: 640px) { form.order-form { grid-template-columns: 1fr; } }
+  .code-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+  .code-row label { flex: 1 1 220px; }
+  .code-row .btn { padding: 10px 18px; }
+  .price-box { border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; background: #24102f; font-size: 15px; color: var(--text); }
+  .price-box.ok { border-color: var(--gold); }
+  .price-box .old { text-decoration: line-through; color: var(--muted); margin-right: 6px; }
+  .price-box .new { color: var(--gold); font-weight: 800; font-size: 20px; }
+  .price-box .bad { color: #ff9d9d; }
   .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 26px; }
   .review { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
   .review .stars { color: var(--gold); letter-spacing: 2px; font-size: 18px; }
@@ -288,8 +296,11 @@
           <label class="full">Their story<textarea name="story" required placeholder="Names and nicknames, memories, faith and church, family, favourite things, sayings…"></textarea></label>
           <label class="check full"><input type="checkbox" name="messages"> Add voice messages from family</label>
           <label class="check full"><input type="checkbox" name="express"> I need the 24-hour express service (+20%, subject to availability)</label>
-          <label>Discount code (optional)<input name="code" autocomplete="off" style="text-transform:uppercase"></label>
-          <p class="note" id="codeMsg" style="margin:0;align-self:end" aria-live="polite"></p>
+          <div class="full code-row">
+            <label>Discount code (optional)<input name="code" autocomplete="off" style="text-transform:uppercase"></label>
+            <button type="button" class="btn ghost" id="applyCode">Apply code</button>
+          </div>
+          <div class="full price-box" id="priceBox" hidden aria-live="polite"></div>
           <div class="form-actions">
             <button type="submit" class="btn wa" data-via="wa">Send on WhatsApp</button>
             <button type="submit" class="btn" data-via="email">Send by email</button>
@@ -391,7 +402,8 @@
   // Discount codes: % off the package and add-ons (not the express surcharge); stack with the launch offer.
   // Codes are stored as SHA-256 of the upper-case code so they can't be read from the page.
   // Keep in sync with PosabaStudio/core.py (DISCOUNT_CODES).
-  const CODES = { "fd7c09c145f9a996a906602268988a8d72d99d873fbe1b45684baed1dc5542df": { pct: 20, until: new Date("2026-12-31T23:59:59-08:00") } };
+  const CODES = { "23e7d5c5532e51d44ec950f879dc69ce82da3eb9fed3f3be03262ebe58c3a4a8": { pct: 20, until: new Date("2026-12-31T23:59:59-08:00") } };
+  const EXPRESS = 0.2;   // 24-hour express: +20% of the package price (keep in sync with core.py EXPRESS_RATE)
   const sha = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))]
     .map(b => b.toString(16).padStart(2, "0")).join("");
   const codeOf = async v => {
@@ -400,16 +412,44 @@
     const c = CODES[await sha(k)];
     return c && new Date() <= c.until ? { k, pct: c.pct } : { k, bad: true };
   };
-  const codeMsg = document.getElementById("codeMsg");
+  const money = (cur, x) => cur + (Number.isInteger(x) ? x.toLocaleString("en") : x.toFixed(2));
+  function quote(pct) {   // price for what's chosen in the form, before and after the code
+    const f = form.elements, d = MARKETS[f.market.value];
+    const i = ["Song", "Song + Lyric Video", "Full Tribute"].indexOf(f.package.value);
+    if (!d || i < 0) return null;   // jingles / adverts are priced on request
+    const pkg = LAUNCH ? d.launch[i] : d.p[i];
+    const msg = f.messages.checked ? (LAUNCH ? d.lmsg : d.msg) : 0;
+    const exp = f.express.checked ? Math.round(pkg * EXPRESS * 100) / 100 : 0;
+    const before = pkg + msg + exp;
+    const after = Math.round(((pkg + msg) * (1 - pct / 100) + exp) * 100) / 100;
+    return { cur: d.cur, before, after, exp };
+  }
+  const priceBox = document.getElementById("priceBox");
   let codeState = null;   // checked while typing, so Send can open WhatsApp straight away (no pop-up blocking)
+  let shown = false;      // price box opened with "Apply code"
+  function render() {
+    if (!shown) { priceBox.hidden = true; return; }
+    const c = codeState;
+    priceBox.hidden = false;
+    priceBox.classList.toggle("ok", !!(c && !c.bad));
+    if (!c) { priceBox.innerHTML = "Type a discount code, then press Apply code."; return; }
+    if (c.bad) { priceBox.innerHTML = '<span class="bad">That code isn\'t recognised (or has expired).</span>'; return; }
+    const q = quote(c.pct);
+    priceBox.innerHTML = !q
+      ? `✓ ${c.pct}% off applied – we'll confirm the price for jingles and adverts.`
+      : `✓ <b>${c.pct}% off applied.</b> Your price: <span class="old">${money(q.cur, q.before)}</span><span class="new">${money(q.cur, q.after)}</span>`
+        + `<br><small style="color:var(--muted)">Starting price for the package${form.elements.messages.checked ? " + voice messages" : ""}${q.exp ? ", plus the 24-hour express (express isn't discounted)" : ""}.</small>`;
+  }
   form.elements.code.addEventListener("input", async () => {
     const v = form.elements.code.value;
     const c = await codeOf(v);
     if (v !== form.elements.code.value) return;   // an older keystroke finished late
-    codeState = c;
-    codeMsg.textContent = !c ? "" : c.bad ? "That code isn't recognised (or has expired)." : `✓ ${c.pct}% off applied – on the package and add-ons (not express).`;
-    codeMsg.style.color = c && !c.bad ? "var(--gold)" : "";
+    codeState = c; shown = false; render();
   });
+  document.getElementById("applyCode").addEventListener("click", async () => {
+    codeState = await codeOf(form.elements.code.value); shown = true; render();
+  });
+  ["market", "package", "messages", "express"].forEach(n => form.elements[n].addEventListener("change", render));
   let via = "wa";
   form.querySelectorAll("button[data-via]").forEach(b => b.addEventListener("click", () => via = b.dataset.via));
   form.addEventListener("submit", e => {
@@ -427,7 +467,11 @@
       "24-hour express: " + (f.get("express") ? "Yes" : "No"),
     ];
     const c = String(f.get("code") || "").trim() ? codeState : null;
-    if (c) lines.push("Discount code: " + c.k + (c.bad ? " (not recognised)" : ` (${c.pct}% off package and add-ons)`));
+    if (c) {
+      lines.push("Discount code: " + c.k + (c.bad ? " (not recognised)" : ` (${c.pct}% off package and add-ons)`));
+      const q = c.bad ? null : quote(c.pct);
+      if (q) lines.push(`Price with code: ${money(q.cur, q.after)} (was ${money(q.cur, q.before)})`);
+    }
     lines.push("Their story: " + f.get("story"));
     const text = lines.join("\n");
     if (via === "wa") window.open("https://wa.me/12507567553?text=" + encodeURIComponent(text), "_blank", "noopener");
