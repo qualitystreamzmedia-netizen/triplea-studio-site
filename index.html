@@ -60,6 +60,13 @@
   .feature-video { margin-bottom: 22px; }
   .feature-video video { width: 100%; aspect-ratio: 16/9; border-radius: 16px; background: #000; display: block; border: 1px solid var(--line); }
   .feature-video p { color: var(--muted); font-size: 15px; margin: 10px 0 0; }
+  .worship-feature { margin: 12px 0 30px; scroll-margin-top: 100px; }
+  .worship-feature h3 { margin: 0 0 16px; color: var(--cream); font-size: 24px; }
+  .worship-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: center; }
+  .worship-player { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 14px; background: #000; display: block; }
+  .worship-copy h4 { margin: 18px 0 8px; color: var(--cream); font-size: 20px; }
+  .worship-copy p { margin: 0 0 16px; }
+  @media (max-width: 760px) { .worship-grid { grid-template-columns: 1fr; } }
   .song-card { background: linear-gradient(160deg, #3b1854, #261034); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
   .song-card img { width: 100%; border-radius: 12px; display: block; }
   audio { width: 100%; margin-top: 12px; }
@@ -186,7 +193,7 @@
   <section id="samples" class="alt">
     <div class="wrap">
       <h2>Listen & watch</h2>
-      <p class="sub">Sample lyric videos: an English love song, a gospel thanksgiving with a touch of Twi, and a full Twi highlife song.</p>
+      <p class="sub">Explore our lyric videos: love songs, gospel thanksgiving, Twi highlife and worship.</p>
       <div class="feature-grid">
         <div class="feature-video">
           <video controls preload="none" playsinline poster="assets/love-song-lyric-video-poster.jpg" src="assets/every-little-thing-full.mp4"></video>
@@ -201,6 +208,19 @@
           <p><b style="color:var(--cream)">“Ɛyɛ Adom” (It Is Grace)</b> – a thanksgiving sung entirely in Twi (Ghanaian highlife), with English meanings on screen. Full song, 4 minutes.</p>
         </div>
       </div>
+      <article class="card worship-feature" id="worship">
+        <h3>Gospel &amp; Worship</h3>
+        <div class="worship-grid">
+          <iframe class="worship-player" src="https://www.youtube-nocookie.com/embed/_KBQma-ql3o" title="Wo Nko Ara Na Mehia — Twi worship lyric video by TripleA Studio" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <div class="worship-copy">
+            <p><b style="color:var(--cream)">“Wo Nko Ara Na Mehia” (You Alone Are All I Need)</b> — a Twi worship song of devotion, trust and surrender to Jesus. Sing along with the full lyric video.</p>
+            <p><a href="https://youtu.be/_KBQma-ql3o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+            <h4>A worship song tailored to you</h4>
+            <p>Share your testimony, favourite scripture and preferred language. Let us turn your story of faith into a personal song of worship.</p>
+            <a class="btn" href="#order">Order a worship song tailored to you</a>
+          </div>
+        </div>
+      </article>
       <div class="btns" style="justify-content:center;margin-top:6px">
         <a class="btn ghost" href="https://www.youtube.com/channel/UCS3ShXKgB7q9eh56aLveUrw" target="_blank" rel="noopener">▶ More videos on our YouTube channel</a>
       </div>
