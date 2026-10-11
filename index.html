@@ -118,6 +118,10 @@
   .extras b { color: var(--cream); }
   .btn.wa { background: #25d366; color: #0b3d1e; }
   .btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 8px 0 28px; }
+  .btn.big { font-size: 19px; padding: 16px 32px; }
+  .btn.yt { background: #ff0033; color: #fff; }
+  .yt-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin: 0 0 22px; }
+  footer .yt-bar .btn { font-size: 18px; padding: 15px 30px; }
   .fab { position: fixed; right: 16px; bottom: 16px; z-index: 20; background: #25d366; color: #0b3d1e; font-weight: 800; text-decoration: none; padding: 12px 18px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,.4); font-size: 15px; }
   form.order-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; text-align: left; }
   form.order-form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--cream); font-weight: 600; }
@@ -256,14 +260,14 @@
               <li><a href="https://youtu.be/Gu5GZMxbV70" target="_blank" rel="noopener">09. Peace Like a River</a></li>
               <li><a href="https://youtu.be/HBZQFFzAyZk" target="_blank" rel="noopener">10. Let Blessing Come</a></li>
             </ul>
-            <p><a href="https://www.youtube.com/playlist?list=PLPk3bVqps1-8" target="_blank" rel="noopener">▶ Play the whole album on YouTube</a> · <a href="https://www.youtube.com/@TripleAStudioMusic?sub_confirmation=1" target="_blank" rel="noopener">🔔 Subscribe</a></p>
+            <div class="btns" style="justify-content:flex-start;margin:6px 0 16px"><a class="btn yt big" href="https://www.youtube.com/playlist?list=PLPk3bVqps1-8" target="_blank" rel="noopener">▶ Play the whole album on YouTube</a><a class="btn ghost big" href="https://www.youtube.com/@TripleAStudioMusic?sub_confirmation=1" target="_blank" rel="noopener">🔔 Subscribe</a></div>
             <a class="btn" href="#order">Order a song tailored to you</a>
           </div>
         </div>
       </article>
       <div class="btns" style="justify-content:center;margin-top:6px">
-        <a class="btn" href="https://www.youtube.com/@TripleAStudioMusic?sub_confirmation=1" target="_blank" rel="noopener">🔔 Subscribe on YouTube</a>
-        <a class="btn ghost" href="https://www.youtube.com/channel/UCS3ShXKgB7q9eh56aLveUrw" target="_blank" rel="noopener">▶ More videos on our YouTube channel</a>
+        <a class="btn yt big" href="https://www.youtube.com/@TripleAStudioMusic?sub_confirmation=1" target="_blank" rel="noopener">🔔 Subscribe on YouTube</a>
+        <a class="btn ghost big" href="https://www.youtube.com/channel/UCS3ShXKgB7q9eh56aLveUrw" target="_blank" rel="noopener">▶ More videos on our YouTube channel</a>
       </div>
       <div class="samples" style="grid-template-columns:1fr;margin-top:22px">
         <!-- advert samples: add here once approved (see README) -->
@@ -378,8 +382,12 @@
 
 <footer>
   <div class="wrap">
+    <div class="yt-bar" style="width:100%">
+      <a class="btn yt" href="https://www.youtube.com/channel/UCS3ShXKgB7q9eh56aLveUrw" target="_blank" rel="noopener">▶ Watch us on YouTube</a>
+      <a class="btn ghost" href="https://www.youtube.com/@TripleAStudioMusic?sub_confirmation=1" target="_blank" rel="noopener">🔔 Subscribe</a>
+    </div>
     <span>© <span id="yr">2026</span> TripleA Studio · Quality Streamz Media</span>
-    <span><a href="https://www.youtube.com/channel/UCS3ShXKgB7q9eh56aLveUrw" target="_blank" rel="noopener">▶ YouTube</a> (<a href="https://www.youtube.com/@TripleAStudioMusic?sub_confirmation=1" target="_blank" rel="noopener">subscribe</a>) · <a href="mailto:triplea@qualitystreamzmedia.com">triplea@qualitystreamzmedia.com</a></span>
+    <span><a href="mailto:triplea@qualitystreamzmedia.com">triplea@qualitystreamzmedia.com</a></span>
   </div>
 </footer>
 <div class="kente"></div>
