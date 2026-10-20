@@ -153,6 +153,21 @@
   details.leave summary { cursor: pointer; display: inline-block; }
   details.leave summary::-webkit-details-marker { display: none; }
   details.leave[open] summary { margin-bottom: 18px; }
+
+ #kids-worship {scroll-margin-top:90px}
+ .kids-album {margin:24px 0 32px}
+ .kids-album video {display:block;width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--line);border-radius:14px;margin:20px 0 12px}
+ .kids-album .kids-now {color:var(--cream);font-weight:600}
+ .kids-controls {display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+ .kids-controls button,.kids-tracks button {font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:10px;color:var(--cream);background:var(--bg2);padding:10px 14px;text-align:left}
+ .kids-controls [data-play-all] {background:var(--gold);color:var(--bg);font-weight:800}
+ .kids-tracks {list-style:none!important;padding:0!important;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0!important}
+ .kids-tracks button {width:100%;height:100%;font-size:16px}
+ .kids-tracks button span {color:var(--gold);margin-right:8px}
+ .kids-tracks button[aria-pressed=true] {border-color:var(--gold);background:#4b2a63}
+ .kids-album button:focus-visible {outline:3px solid var(--gold);outline-offset:3px}
+ @media(max-width:600px){.kids-tracks{grid-template-columns:1fr}.kids-album{padding:16px}}
+
 </style>
 </head>
 <body>
@@ -164,6 +179,7 @@
     <nav>
       <a href="#services">Services</a>
       <a href="#samples">Listen</a>
+      <a href="#kids-worship">Kids worship</a>
       <a href="#prices">Prices</a>
       <a href="#how">How it works</a>
       <a href="#reviews">Reviews</a>
@@ -333,7 +349,43 @@
     </div>
   </section>
 
-  <section id="prices">
+  <!-- Kids worship albums -->
+<section class="alt" id="kids-worship"><div class="wrap">
+<h2>Little Hearts, Big Praise</h2>
+<p class="sub">Children’s worship in English and English–Twi. Choose an album, play the songs in order, or pick a favourite from either playlist.</p>
+<article class="card kids-album" id="kids-english" data-kids-album="english">
+ <h3>Little Hearts, Big Praise — English</h3>
+ <p>Eight joyful children’s worship songs about gratitude, love, prayer and God’s beautiful world. Sing along with the lyrics on screen.</p>
+ <video controls playsinline preload="none" poster="assets/kids-worship/english/01.jpg" aria-label="Little Hearts, Big Praise — English album player" src="assets/kids-worship/english/01.mp4"></video>
+ <p class="kids-now" aria-live="polite">Now selected: 01. Thank You God</p>
+ <div class="kids-controls"><button type="button" data-previous>Previous song</button><button type="button" data-play-all>Play album</button><button type="button" data-next>Next song</button></div>
+ <ol class="kids-tracks" aria-label="English album playlist"><li><button type="button" data-track="0" aria-pressed="true"><span>01</span> Thank You God</button></li>
+<li><button type="button" data-track="1" aria-pressed="false"><span>02</span> Jesus Loves Me</button></li>
+<li><button type="button" data-track="2" aria-pressed="false"><span>03</span> God’s Beautiful World</button></li>
+<li><button type="button" data-track="3" aria-pressed="false"><span>04</span> Let’s Pray</button></li>
+<li><button type="button" data-track="4" aria-pressed="false"><span>05</span> Love One Another</button></li>
+<li><button type="button" data-track="5" aria-pressed="false"><span>06</span> God Is With Me</button></li>
+<li><button type="button" data-track="6" aria-pressed="false"><span>07</span> Clap and Praise</button></li>
+<li><button type="button" data-track="7" aria-pressed="false"><span>08</span> Peace Tonight</button></li></ol>
+ <p class="note">Original lyrics with AI-assisted music, vocals and visuals, edited by TripleA Studio.</p>
+ </article><article class="card kids-album" id="kids-twi-english" data-kids-album="twi-english">
+ <h3>Little Hearts, Big Praise — English &amp; Twi</h3>
+ <p>Eight joyful children’s worship songs about gratitude, love, prayer and God’s beautiful world. Sing along with the lyrics on screen.</p>
+ <video controls playsinline preload="none" poster="assets/kids-worship/twi-english/01.jpg" aria-label="Little Hearts, Big Praise — English &amp; Twi album player" src="assets/kids-worship/twi-english/01.mp4"></video>
+ <p class="kids-now" aria-live="polite">Now selected: 01. Thank You God</p>
+ <div class="kids-controls"><button type="button" data-previous>Previous song</button><button type="button" data-play-all>Play album</button><button type="button" data-next>Next song</button></div>
+ <ol class="kids-tracks" aria-label="English &amp; Twi album playlist"><li><button type="button" data-track="0" aria-pressed="true"><span>01</span> Thank You God</button></li>
+<li><button type="button" data-track="1" aria-pressed="false"><span>02</span> Jesus Loves Me</button></li>
+<li><button type="button" data-track="2" aria-pressed="false"><span>03</span> God’s Beautiful World</button></li>
+<li><button type="button" data-track="3" aria-pressed="false"><span>04</span> Let’s Pray</button></li>
+<li><button type="button" data-track="4" aria-pressed="false"><span>05</span> Love One Another</button></li>
+<li><button type="button" data-track="5" aria-pressed="false"><span>06</span> God Is With Me</button></li>
+<li><button type="button" data-track="6" aria-pressed="false"><span>07</span> Clap and Praise</button></li>
+<li><button type="button" data-track="7" aria-pressed="false"><span>08</span> Peace Tonight</button></li></ol>
+ <p class="note">Original lyrics with AI-assisted music, vocals and visuals, edited by TripleA Studio.</p>
+ </article></div></section>
+
+<section id="prices">
     <div class="wrap">
       <h2>Prices</h2>
       <p class="sub">Starting prices for tribute songs. Choose where you are:</p>
@@ -602,6 +654,17 @@
     if (via === "wa") window.open("https://wa.me/12507567553?text=" + encodeURIComponent(text), "_blank", "noopener");
     else location.href = "mailto:triplea@qualitystreamzmedia.com?subject=" + encodeURIComponent("Song order – " + f.get("for")) + "&body=" + encodeURIComponent(text);
   });
+</script>
+<script>
+(()=>{const albums=[{"id": "english", "language": "English", "tracks": [{"title": "Thank You God", "video": "assets/kids-worship/english/01.mp4", "poster": "assets/kids-worship/english/01.jpg"}, {"title": "Jesus Loves Me", "video": "assets/kids-worship/english/02.mp4", "poster": "assets/kids-worship/english/02.jpg"}, {"title": "God’s Beautiful World", "video": "assets/kids-worship/english/03.mp4", "poster": "assets/kids-worship/english/03.jpg"}, {"title": "Let’s Pray", "video": "assets/kids-worship/english/04.mp4", "poster": "assets/kids-worship/english/04.jpg"}, {"title": "Love One Another", "video": "assets/kids-worship/english/05.mp4", "poster": "assets/kids-worship/english/05.jpg"}, {"title": "God Is With Me", "video": "assets/kids-worship/english/06.mp4", "poster": "assets/kids-worship/english/06.jpg"}, {"title": "Clap and Praise", "video": "assets/kids-worship/english/07.mp4", "poster": "assets/kids-worship/english/07.jpg"}, {"title": "Peace Tonight", "video": "assets/kids-worship/english/08.mp4", "poster": "assets/kids-worship/english/08.jpg"}]}, {"id": "twi-english", "language": "English & Twi", "tracks": [{"title": "Thank You God", "video": "assets/kids-worship/twi-english/01.mp4", "poster": "assets/kids-worship/twi-english/01.jpg"}, {"title": "Jesus Loves Me", "video": "assets/kids-worship/twi-english/02.mp4", "poster": "assets/kids-worship/twi-english/02.jpg"}, {"title": "God’s Beautiful World", "video": "assets/kids-worship/twi-english/03.mp4", "poster": "assets/kids-worship/twi-english/03.jpg"}, {"title": "Let’s Pray", "video": "assets/kids-worship/twi-english/04.mp4", "poster": "assets/kids-worship/twi-english/04.jpg"}, {"title": "Love One Another", "video": "assets/kids-worship/twi-english/05.mp4", "poster": "assets/kids-worship/twi-english/05.jpg"}, {"title": "God Is With Me", "video": "assets/kids-worship/twi-english/06.mp4", "poster": "assets/kids-worship/twi-english/06.jpg"}, {"title": "Clap and Praise", "video": "assets/kids-worship/twi-english/07.mp4", "poster": "assets/kids-worship/twi-english/07.jpg"}, {"title": "Peace Tonight", "video": "assets/kids-worship/twi-english/08.mp4", "poster": "assets/kids-worship/twi-english/08.jpg"}]}];
+for(const album of albums){const el=document.querySelector('[data-kids-album="'+album.id+'"]');const player=el.querySelector('video');const buttons=[...el.querySelectorAll('[data-track]')];let index=0;
+function select(n,play){index=(n+album.tracks.length)%album.tracks.length;const t=album.tracks[index];player.src=t.video;player.poster=t.poster;el.querySelector('.kids-now').textContent='Now selected: '+String(index+1).padStart(2,'0')+'. '+t.title;buttons.forEach((b,j)=>b.setAttribute('aria-pressed',String(j===index)));if(play)player.play().catch(()=>{});}
+buttons.forEach((b,j)=>b.addEventListener('click',()=>select(j,true)));
+el.querySelector('[data-previous]').addEventListener('click',()=>select(index-1,true));el.querySelector('[data-next]').addEventListener('click',()=>select(index+1,true));el.querySelector('[data-play-all]').addEventListener('click',()=>select(0,true));
+player.addEventListener('ended',()=>{if(index<album.tracks.length-1)select(index+1,true);});
+player.addEventListener('play',()=>document.querySelectorAll('video,audio').forEach(v=>{if(v!==player)v.pause();}));
+}
+})();
 </script>
 </body>
 </html>
