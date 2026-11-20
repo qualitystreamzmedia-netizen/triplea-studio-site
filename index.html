@@ -226,6 +226,57 @@
   </section>
 
 <section id="inspirations" class="alt"><div class="wrap"><h2>TripleA Inspirations</h2><p class="sub">A little encouragement. One step at a time. Cinematic short films with warm narration and original piano. <a href="https://www.youtube.com/@TripleAInspirations" target="_blank" rel="noopener">Subscribe to TripleA Inspirations on YouTube →</a></p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px;align-items:start">
+<template id="anwummere-mpaebo-2026-11-20-release">
+  <article class="card" id="anwummere-mpaebo-2026-11-20">
+    <h3><span lang="tw">Anwummere Mpaebɔ</span> | Evening Prayer in Asante Twi</h3>
+    <a class="evening-prayer-player" href="https://youtu.be/R1TpCkWSLe4" target="_blank" rel="noopener"
+       aria-label="Play Anwummere Mpaebɔ, an evening prayer in Asante Twi with English captions"
+       style="position:relative;display:block;width:100%;max-width:360px;aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:#102329;margin:auto">
+      <img src="assets/anwummere-mpaebo-2026-11-20.jpg" alt="" width="1280" height="720" loading="lazy"
+           style="display:block;width:100%;height:100%;object-fit:cover">
+      <span aria-hidden="true" style="position:absolute;right:10px;bottom:10px;background:#102329;color:#fff;font-weight:700;padding:5px 12px;border-radius:6px">▶ Play</span>
+    </a>
+    <p><time datetime="2026-11-20">November 20, 2026</time></p>
+    <p>Grandma gives thanks for the day and prays for a peaceful night. In Asante Twi with English captions.</p>
+    <p><a href="https://youtu.be/R1TpCkWSLe4" target="_blank" rel="noopener">Watch on YouTube →</a></p>
+  </article>
+</template>
+<script>
+{
+  const scheduledCard = document.getElementById('anwummere-mpaebo-2026-11-20-release');
+  const releaseTime = Date.parse('2026-11-20T17:00:00Z');
+
+  function showEveningPrayer() {
+    const timeUntilRelease = releaseTime - Date.now();
+    if (timeUntilRelease > 0) {
+      window.setTimeout(showEveningPrayer, Math.min(timeUntilRelease, 2147483647));
+      return;
+    }
+
+    const card = scheduledCard.content.firstElementChild.cloneNode(true);
+    const player = card.querySelector('.evening-prayer-player');
+    player.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+
+      const frame = document.createElement('iframe');
+      frame.title = 'Anwummere Mpaebɔ | Evening Prayer in Asante Twi';
+      frame.src = 'https://www.youtube-nocookie.com/embed/R1TpCkWSLe4?autoplay=1&playsinline=1';
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.style.cssText = player.style.cssText;
+      frame.style.border = '0';
+      player.replaceWith(frame);
+      frame.focus();
+    });
+    scheduledCard.replaceWith(card);
+    if (window.location.hash === '#' + card.id) card.scrollIntoView();
+  }
+
+  showEveningPrayer();
+}
+</script>
 <article class="card" id="anopa-mpae">
   <h3><span lang="tw">Anɔpa Mpae</span> | Morning Prayer in Asante Twi</h3>
   <a id="anopa-mpae-play" href="https://youtu.be/cZ94usZfF3s" target="_blank" rel="noopener"
