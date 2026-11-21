@@ -226,6 +226,74 @@
   </section>
 
 <section id="inspirations" class="alt"><div class="wrap"><h2>TripleA Inspirations</h2><p class="sub">A little encouragement. One step at a time. Cinematic short films with warm narration and original piano. <a href="https://www.youtube.com/@TripleAInspirations" target="_blank" rel="noopener">Subscribe to TripleA Inspirations on YouTube →</a></p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px;align-items:start">
+<template data-saturday-prayer-release="2026-11-21T04:00:00Z">
+  <article class="card" id="morning-prayer-2026-11-21">
+    <h3>Saturday Morning Prayer with Grandma</h3>
+    <a class="saturday-prayer-player" href="https://youtu.be/aUcB9_lJqVs" target="_blank" rel="noopener"
+       aria-label="Play Saturday Morning Prayer with Grandma in English"
+       style="position:relative;display:block;width:100%;max-width:360px;aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:#102329;margin:auto">
+      <img src="assets/morning-prayer-2026-11-21.jpg" alt="" width="1280" height="720" loading="lazy"
+           style="display:block;width:100%;height:100%;object-fit:cover">
+      <span aria-hidden="true" style="position:absolute;right:10px;bottom:10px;background:#102329;color:#fff;font-weight:700;padding:5px 12px;border-radius:6px">▶ Play</span>
+    </a>
+    <p><time datetime="2026-11-21">November 21, 2026</time></p>
+    <p>Grandma prays for couples getting married, families who are grieving, and everyone travelling today. In English with captions.</p>
+    <p><a href="https://youtu.be/aUcB9_lJqVs" target="_blank" rel="noopener">Watch on YouTube →</a></p>
+  </article>
+</template>
+<template data-saturday-prayer-release="2026-11-21T16:00:00Z">
+  <article class="card" id="evening-prayer-2026-11-21">
+    <h3>Saturday Evening Prayer with Grandma</h3>
+    <a class="saturday-prayer-player" href="https://youtu.be/FZmzm6JCKIY" target="_blank" rel="noopener"
+       aria-label="Play Saturday Evening Prayer with Grandma in English"
+       style="position:relative;display:block;width:100%;max-width:360px;aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:#102329;margin:auto">
+      <img src="assets/evening-prayer-2026-11-21.jpg" alt="" width="1280" height="720" loading="lazy"
+           style="display:block;width:100%;height:100%;object-fit:cover">
+      <span aria-hidden="true" style="position:absolute;right:10px;bottom:10px;background:#102329;color:#fff;font-weight:700;padding:5px 12px;border-radius:6px">▶ Play</span>
+    </a>
+    <p><time datetime="2026-11-21">November 21, 2026</time></p>
+    <p>Grandma gives thanks for the day and prays for safe journeys, peace at home, and rest through the night. In English with captions.</p>
+    <p><a href="https://youtu.be/FZmzm6JCKIY" target="_blank" rel="noopener">Watch on YouTube →</a></p>
+  </article>
+</template>
+<script>
+{
+  for (const scheduledCard of document.querySelectorAll('template[data-saturday-prayer-release]')) {
+    const releaseTime = Date.parse(scheduledCard.dataset.saturdayPrayerRelease);
+
+    function showPrayer() {
+      const timeUntilRelease = releaseTime - Date.now();
+      if (timeUntilRelease > 0) {
+        window.setTimeout(showPrayer, Math.min(timeUntilRelease, 2147483647));
+        return;
+      }
+
+      const card = scheduledCard.content.firstElementChild.cloneNode(true);
+      const player = card.querySelector('.saturday-prayer-player');
+      const videoId = new URL(player.href).pathname.slice(1);
+      player.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+
+        const frame = document.createElement('iframe');
+        frame.title = card.querySelector('h3').textContent;
+        frame.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&playsinline=1';
+        frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+        frame.allowFullscreen = true;
+        frame.referrerPolicy = 'strict-origin-when-cross-origin';
+        frame.style.cssText = player.style.cssText;
+        frame.style.border = '0';
+        player.replaceWith(frame);
+        frame.focus();
+      });
+      scheduledCard.replaceWith(card);
+      if (window.location.hash === '#' + card.id) card.scrollIntoView();
+    }
+
+    showPrayer();
+  }
+}
+</script>
 <template id="anwummere-mpaebo-2026-11-20-release">
   <article class="card" id="anwummere-mpaebo-2026-11-20">
     <h3><span lang="tw">Anwummere Mpaebɔ</span> | Evening Prayer in Asante Twi</h3>
